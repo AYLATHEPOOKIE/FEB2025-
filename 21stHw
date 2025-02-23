@@ -1,0 +1,47 @@
+import pgzrun, random
+
+WIDTH=1000
+HEIGHT=625
+game_over=False
+score=0
+
+bee=Actor("inayah")
+bee.pos=(500,312)
+flower=Actor("felix")
+mummy=Actor("mummyawawa")
+mummy.pos=(300,325)
+flower.pos=(random.randint(40,960),random.randint(40,600))
+
+def draw():
+    screen.blit("bg28th",(0,0))
+    bee.draw()
+    flower.draw()
+    screen.draw.text(str(score),center=(500,100),fontname="cursiveboldreadablestylish",fontsize=75,color=(2,23,8))
+    screen.draw.text("CATCH THE CATS",center=(500,40),fontname="cursiveboldreadablestylish",fontsize=80,color=(2,23,8))
+    if game_over:
+        screen.blit("bg28th2",(0,0))
+        mummy.draw()
+        bee.draw()
+        screen.draw.text("MUMMY I FOUND \n "+str(score)+" CATS TODAY!!",center=(500,100),fontname="cursiveboldreadablestylish",fontsize=70,color=(20,20,20))
+
+def update():
+    global score
+    if keyboard.left and bee.x>0:
+        bee.x-=5
+    if keyboard.right and bee.x<1000:
+        bee.x+=5
+    if keyboard.up and bee.y>0:
+        bee.y-=5
+    if keyboard.down and bee.y<625:
+        bee.y+=5
+    if bee.colliderect(flower):
+        score+=1
+        flower.pos=(random.randint(40,960),random.randint(40,600))
+
+def gameoveristrue():
+    global game_over
+    game_over=True
+
+clock.schedule(gameoveristrue,30)
+
+pgzrun.go()
