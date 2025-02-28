@@ -11,7 +11,8 @@ flower=Actor("felix")
 mummy=Actor("mummyawawa")
 mummy.pos=(300,325)
 flower.pos=(random.randint(40,960),random.randint(40,600))
-
+inayah=Actor("inayah")
+inayah.pos=(600,325)
 def draw():
     screen.blit("bg28th",(0,0))
     bee.draw()
@@ -21,11 +22,15 @@ def draw():
     if game_over:
         screen.blit("bg28th2",(0,0))
         mummy.draw()
-        bee.draw()
+        inayah.draw()
         screen.draw.text("MUMMY I FOUND \n "+str(score)+" CATS TODAY!!",center=(500,100),fontname="cursiveboldreadablestylish",fontsize=70,color=(20,20,20))
 
 def update():
     global score
+    flower.x+=5
+    if flower.x==1000:
+     flower.x=0
+     flower.y=(random.randint(40,600))
     if keyboard.left and bee.x>0:
         bee.x-=5
     if keyboard.right and bee.x<1000:
